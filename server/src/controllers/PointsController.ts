@@ -56,41 +56,49 @@ class PointsController {
             curator_review
         } = req.body;
 
-        const trx = await knex.transaction(); //só insere na database se as duas querys tiverem sucesso
+        if ( typeof(category) === 'number' ) {
 
-        const point = {
-            image: 'https://images.unsplash.com/photo-1582198810343-5b5b2ff7f3c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
-            name,
-            neighborhood,
-            street,
-            number,
-            latitude,
-            longitude,
-            city,
-            state,
-            working_hours,
-            email,
-            whatsapp,
-            curator_review
-        };
+            const trx = await knex.transaction(); //só insere na database se as duas querys tiverem sucesso
 
-        const insertedIds = await trx('points').insert(point);
+            const point = {
+                image: 'https://images.unsplash.com/photo-1582198810343-5b5b2ff7f3c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+                name,
+                neighborhood,
+                street,
+                number,
+                latitude,
+                longitude,
+                city,
+                state,
+                working_hours,
+                email,
+                whatsapp,
+                curator_review
+            };
 
-        const point_id = insertedIds[0];
+            const insertedIds = await trx('points').insert(point);
 
-        const pointCategories = {
-                category_id: category,
-                point_id
-            }
+            const point_id = insertedIds[0];
 
-        await trx('point_categories').insert(pointCategories);
+            const pointCategories = {
+                    category_id: category,
+                    point_id
+                }
 
-        trx.commit();
+            await trx('point_categories').insert(pointCategories);
 
-        return res.json({ 
-            id: point_id,
-            ...point
-        })
+            trx.commit();
+
+            return res.json({ 
+                id: point_id,
+                ...point
+            })
+
+
+        } else {
+
+            return res.json({ message: "Category wasn't a number"});
+        }        
     }
 }
 
