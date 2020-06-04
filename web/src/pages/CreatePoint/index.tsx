@@ -1,5 +1,5 @@
-import React, { useEffect, useState, ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
@@ -35,8 +35,21 @@ const CreatePoint = () => {
     const [selectedUf, setSelectedUf] = useState('0');
     const [selectedCity, setSelectedCity] = useState('0');
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
+    const [selectedCategory, setSelectedCategory] = useState<number>(0);
+    
+    const [formData, setFormData] = useState({
+        biz_name: '',
+        email: '',
+        whatsapp: '',
+        working_hours: '',
+        instagram: '',
+        facebook: '',
+        neighborhood: '',
+        full_address: '',
+        curator_review: ''        
+    })
 
-
+    const history = useHistory();
 
     useEffect( () => {
         navigator.geolocation.getCurrentPosition( position => {
@@ -94,6 +107,82 @@ const CreatePoint = () => {
         ])
     }
 
+    function handleInputChange (event: ChangeEvent<HTMLInputElement>) {
+        const { name, value } = event.target;
+
+        setFormData({ ...formData,  [name]: value});
+
+    }
+
+    function handleTextareaChange (event: ChangeEvent<HTMLTextAreaElement>) {
+        const { name, value } = event.target;
+
+        setFormData({ ...formData,  [name]: value});
+
+    }
+
+    function handleSelectItem (id: number) {
+
+        if ( selectedCategory === id ) {
+
+            setSelectedCategory(0);
+
+        } else {
+            setSelectedCategory(id);
+        }
+    }
+
+    function handleSubmit (event: FormEvent) {
+
+        event.preventDefault();
+
+        console.log('ihaaaaaaaaaaaaaaaaaaa');
+
+        const { 
+            biz_name, 
+            email, 
+            whatsapp, 
+            working_hours, 
+            instagram, 
+            facebook, 
+            neighborhood, 
+            full_address, 
+            curator_review 
+        } = formData;
+
+        const state = selectedUf;
+
+        const city = selectedCity;
+
+        const [latitude, longitude] = selectedPosition;
+
+        const category = selectedCategory;
+
+        const data = {
+            biz_name,
+            email,
+            whatsapp,
+            working_hours, 
+            instagram, 
+            facebook, 
+            neighborhood, 
+            full_address, 
+            curator_review,
+            state,
+            city,
+            latitude,
+            longitude,
+            category
+        }
+
+        api.post('negocios-locais', data);
+
+        alert('Ponto de coleta criado');
+
+        history.push('/');
+
+    }
+
     return (
         <div id="page-create-point">
             <header>
@@ -105,7 +194,7 @@ const CreatePoint = () => {
                 </Link>
             </header>
 
-            <form>
+            <form onSubmit={handleSubmit}>
                 <h1>Cadastro de negócio</h1>                
 
                 <fieldset>
@@ -114,34 +203,37 @@ const CreatePoint = () => {
                     </legend>
 
                     <div className="field">
-                        <label htmlFor="businessName">Nome do negócio</label>
+                        <label htmlFor="biz_name">Nome do negócio</label>
                         <input
                             type="text"
-                            name="businessName"
-                            id="businessName"
+                            name="biz_name"
+                            id="biz_name"
+                            onChange={handleInputChange}
                         />
                     </div>
                     <div className="field-group">
                         <div className="field">
-                            <label htmlFor="emailAddress">E-mail (opcional)</label>
+                            <label htmlFor="email">E-mail (opcional)</label>
                             <input
                                 type="email"
-                                name="emailAddress"
-                                id="emailAddress"
+                                name="email"
+                                id="email"
+                                onChange={handleInputChange}
                             />
                         </div>
                         <div className="field">
-                            <label htmlFor="businessName">Whatsapp</label>
+                            <label htmlFor="whatsapp">Whatsapp</label>
                             <input
                                 type="text"
-                                name="Whatsapp"
-                                id="Whatsapp"
+                                name="whatsapp"
+                                id="whatsapp"
+                                onChange={handleInputChange}
                             />
                         </div>
                     </div>
                     <div className="field">
                         <label htmlFor="working_hours">Horários de funcionamento</label>
-                        <textarea name="working_hours" id="working_hours"></textarea>
+                        <textarea name="working_hours" id="working_hours" onChange={handleTextareaChange}></textarea>
                     </div>
                     <div className="field-group">
                         <div className="field">
@@ -150,6 +242,7 @@ const CreatePoint = () => {
                                 type="text"
                                 name="instagram"
                                 id="instagram"
+                                onChange={handleInputChange}
                             />
                         </div>
                         <div className="field">
@@ -158,6 +251,7 @@ const CreatePoint = () => {
                                 type="text"
                                 name="facebook"
                                 id="facebook"
+                                onChange={handleInputChange}
                             />
                         </div>
                     </div>
@@ -204,15 +298,17 @@ const CreatePoint = () => {
                             type="text"
                             name="neighborhood"
                             id="neighborhood"
+                            onChange={handleInputChange}
                         />
                     </div>
                     <div className="field">
-                        <label htmlFor="fullAddress">Endereço completo (opcional)</label>
-                        <small>Se informado, esse informação aparecerá no cabeçalho da página do negócio</small>
+                        <label htmlFor="full_address">Endereço completo (opcional)</label>
+                        <small>Se informado, essa informação aparecerá no cabeçalho da página do negócio</small>
                         <input 
                             type="text"
-                            name="fullAddress"
-                            id="fullAddress"
+                            name="full_address"
+                            id="full_address"
+                            onChange={handleInputChange}
                         />
                     </div>
                 </fieldset>
@@ -224,7 +320,11 @@ const CreatePoint = () => {
 
                     <ul className="items-grid">
                         {categories.map(category => (
-                            <li key={category.id}>
+                            <li 
+                                key={category.id} 
+                                onClick={ () => handleSelectItem(category.id) }
+                                className={ selectedCategory === category.id ? 'selected' : '' }
+                            >
                                 <img src={category.image_url} alt="Ícone da categoria" />
                                 <span>{category.name}</span>
                             </li>
@@ -240,7 +340,7 @@ const CreatePoint = () => {
                     
                     <div className="field">
                         <label htmlFor="curator_review">Descrição pessoal sobre o negócio</label>
-                        <textarea name="curator_review" id="curator_review" rows={5}></textarea>
+                        <textarea name="curator_review" id="curator_review" rows={5} onChange={handleTextareaChange}></textarea>
                     </div>
 
                 </fieldset>

@@ -41,19 +41,21 @@ class PointsController {
     async create (req: Request, res: Response) {
 
         const {
-            name,
-            neighborhood,
-            street,
-            number,
+            biz_name,
+            email,
+            whatsapp,
+            working_hours,
+            instagram,
+            facebook,
+            image,
             latitude,
             longitude,
             city,
             state,
-            working_hours,
-            email,
-            whatsapp,
+            neighborhood,
+            full_address,
             category,
-            curator_review
+            curator_review            
         } = req.body;
 
         if ( typeof(category) === 'number' ) {
@@ -62,17 +64,18 @@ class PointsController {
 
             const point = {
                 image: 'https://images.unsplash.com/photo-1582198810343-5b5b2ff7f3c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
-                name,
-                neighborhood,
-                street,
-                number,
+                biz_name,
+                email,
+                whatsapp,
+                working_hours,
+                instagram,
+                facebook,
                 latitude,
                 longitude,
                 city,
                 state,
-                working_hours,
-                email,
-                whatsapp,
+                neighborhood,
+                full_address,
                 curator_review
             };
 
