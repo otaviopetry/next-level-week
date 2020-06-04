@@ -171,6 +171,7 @@
 }
 
 .items-grid {
+  max-width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
@@ -192,6 +193,10 @@
   text-align: center;
 
   cursor: pointer;
+}
+
+.items-grid li img {
+  max-width: 100%;
 }
 
 .items-grid li span {

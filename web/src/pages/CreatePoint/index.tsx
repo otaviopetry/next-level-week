@@ -252,19 +252,5 @@ const CreatePoint = () => {
     )
 }
 
-
-// name,
-// neighborhood,
-// street,
-// latitude,
-// longitude,
-// city,
-// state,
-// working_hours,
-// email,
-// whatsapp,
-// category,
-// curator_review
-
 export default CreatePoint;
 
