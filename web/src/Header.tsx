@@ -4,10 +4,10 @@ interface HeaderProps {
     title: string //se não quiser que seja obrigatória -> title?: string
 }
 
-const Header: React.FC = () => {
+const Header: React.FC<HeaderProps> = (props) => {
     return (
         <header>
-            <h1>Negócios locais POA</h1>            
+            <h1>{props.title}</h1>            
         </header>
     );
 }

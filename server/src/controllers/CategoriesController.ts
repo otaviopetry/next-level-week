@@ -8,6 +8,7 @@ class CategoriesController {
 
         const serializedItems = categories.map( category => {
             return {
+                id: category.id,
                 name: category.name,
                 image_url: `http://localhost:3333/uploads/${category.icon}`
             }
