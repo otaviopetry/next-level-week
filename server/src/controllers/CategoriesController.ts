@@ -10,7 +10,7 @@ class CategoriesController {
             return {
                 id: category.id,
                 name: category.name,
-                image_url: `http://localhost:3333/uploads/${category.icon}`
+                image_url: `http://192.168.0.102:3333/uploads/${category.icon}`
             }
         })
         

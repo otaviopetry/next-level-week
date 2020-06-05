@@ -136,7 +136,6 @@ const CreatePoint = () => {
 
         event.preventDefault();
 
-        console.log('ihaaaaaaaaaaaaaaaaaaa');
 
         const { 
             biz_name, 
