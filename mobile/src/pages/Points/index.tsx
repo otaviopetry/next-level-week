@@ -17,6 +17,7 @@ interface Category {
 interface Point {
   id: number,
   image: string,
+  image_url: string,
   biz_name: string,
   latitude: number,
   longitude: number
@@ -126,7 +127,7 @@ const Points = () => {
                   >
                     
                     <View style={styles.mapMarkerContainer}>
-                      <Image style={styles.mapMarkerImage} source={{ uri: point.image }} />
+                      <Image style={styles.mapMarkerImage} source={{ uri: point.image_url }} />
                       <Text style={styles.mapMarkerTitle}>{point.biz_name}</Text>
                     </View>
 

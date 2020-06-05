@@ -1,4 +1,4 @@
-import {Request, Response} from 'express';
+import {Request, Response, request} from 'express';
 import knex from '../database/connection';
 
 class PointsController {
@@ -21,7 +21,14 @@ class PointsController {
             .where('state', String(state))
             .select('points.*');
 
-        return res.json(points);
+        const serializedPoints = points.map( point => {
+            return {
+                ...point,
+                image_url: `http://192.168.0.102:3333/uploads/${point.image}`
+            }
+        })
+
+        return res.json(serializedPoints);
         
     }
     
@@ -62,50 +69,47 @@ class PointsController {
             curator_review            
         } = req.body;
 
-        if ( typeof(category) === 'number' ) {
 
-            const trx = await knex.transaction(); //só insere na database se as duas querys tiverem sucesso
+        const trx = await knex.transaction(); //só insere na database se as duas querys tiverem sucesso
 
-            const point = {
-                image: 'https://images.unsplash.com/photo-1582198810343-5b5b2ff7f3c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
-                biz_name,
-                email,
-                whatsapp,
-                working_hours,
-                instagram,
-                facebook,
-                latitude,
-                longitude,
-                city,
-                state,
-                neighborhood,
-                full_address,
-                curator_review
-            };
+        const point = {
+            image: req.file.filename,
+            biz_name,
+            email,
+            whatsapp,
+            working_hours,
+            instagram,
+            facebook,
+            latitude,
+            longitude,
+            city,
+            state,
+            neighborhood,
+            full_address,
+            curator_review
+        };
 
-            const insertedIds = await trx('points').insert(point);
+        const insertedIds = await trx('points').insert(point);
 
-            const point_id = insertedIds[0];
+        const point_id = insertedIds[0];
 
-            const pointCategories = {
-                    category_id: category,
-                    point_id
-                }
+        const pointCategories = {
+                category_id: category,
+                point_id
+            }
 
-            await trx('point_categories').insert(pointCategories);
+        await trx('point_categories').insert(pointCategories);
 
-            trx.commit();
+        trx.commit();
 
-            return res.json({ 
-                id: point_id,
-                ...point
-            })
+        return res.json({ 
+            id: point_id,
+            ...point
+        })
 
 
-        } else {
 
-            return res.json({ message: "Category wasn't a number"});
-        }        
+              
     }
 }
 

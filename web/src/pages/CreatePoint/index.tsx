@@ -10,6 +10,9 @@ import './styles.css';
 
 import logo from '../../assets/logo.svg';
 
+import Dropzone from '../../components/Dropzone';
+
+
 interface Category {
     id: number,
     name: string,
@@ -194,7 +197,7 @@ const CreatePoint = () => {
             </header>
 
             <form onSubmit={handleSubmit}>
-                <h1>Cadastro de negócio</h1>                
+                <h1>Cadastro de negócio</h1>
 
                 <fieldset>
                     <legend>
@@ -311,6 +314,9 @@ const CreatePoint = () => {
                         />
                     </div>
                 </fieldset>
+
+                <Dropzone />
+
                 <fieldset>
                     <legend>
                         <h2>Categoria</h2>
