@@ -6,13 +6,17 @@ class PointsController {
     async index (req: Request, res: Response) {
         // filtros: cidade, estado, categorias
 
-        const { city, state, category } = req.query;
+        const { city, state, categories } = req.query;
 
-        console.log( city, state, category );
+        console.log( city, state, categories );
+
+        const parsedCategories = String(categories)
+            .split(',')
+            .map(item => Number(item.trim()));
 
         const points = await knex('points')
             .join('point_categories', 'points.id', '=', 'point_categories.point_id')
-            .where('point_categories.category_id', Number(category))
+            .whereIn('point_categories.category_id', parsedCategories)
             .where('city', String(city))
             .where('state', String(state))
             .select('points.*');
@@ -33,7 +37,7 @@ class PointsController {
         const categories = await knex('categories')
             .join('point_categories', 'categories.id', '=', 'point_categories.category_id')
             .where('point_categories.point_id', id)
-            .select( 'categories.name' );
+            .select( '*' );
 
         return res.json( { point, categories } );
     }
