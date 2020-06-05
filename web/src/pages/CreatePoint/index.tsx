@@ -29,6 +29,7 @@ interface Category {
 const CreatePoint = () => {
 
     const [categories, setCategories] = useState<Category[]>([]);
+
     //const [ufs, setUfs] = useState<string[]>([]);
     //const [cities, setCities] = useState<string[]>([]);
 
@@ -39,6 +40,8 @@ const CreatePoint = () => {
 
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
     const [selectedCategory, setSelectedCategory] = useState<number>(0);
+
+    const [selectedFile, setSelectedFile] = useState<File>();
     
     const [formData, setFormData] = useState({
         biz_name: '',
@@ -139,7 +142,6 @@ const CreatePoint = () => {
 
         event.preventDefault();
 
-
         const { 
             biz_name, 
             email, 
@@ -163,21 +165,25 @@ const CreatePoint = () => {
 
         const category = selectedCategory;
 
-        const data = {
-            biz_name,
-            email,
-            whatsapp,
-            working_hours, 
-            instagram, 
-            facebook, 
-            neighborhood, 
-            full_address, 
-            curator_review,
-            state,
-            city,
-            latitude,
-            longitude,
-            category
+        const data = new FormData();
+
+        data.append('biz_name', biz_name);
+        data.append('email', email);
+        data.append('whatsapp', whatsapp);
+        data.append('working_hours', working_hours); 
+        data.append('instagram', instagram); 
+        data.append('facebook', facebook); 
+        data.append('neighborhood', neighborhood); 
+        data.append('full_address', full_address); 
+        data.append('curator_review', curator_review);
+        data.append('state', state);
+        data.append('city', city);
+        data.append('latitude', String(latitude));
+        data.append('longitude', String(longitude));
+        data.append('category', String(category));
+        
+        if (selectedFile) {
+            data.append('image', selectedFile);    
         }
 
         api.post('negocios-locais', data);
@@ -233,6 +239,7 @@ const CreatePoint = () => {
                                 name="whatsapp"
                                 id="whatsapp"
                                 onChange={handleInputChange}
+                                maxLength={11}
                             />
                         </div>
                     </div>
@@ -308,7 +315,15 @@ const CreatePoint = () => {
                     </div>
                 </fieldset>
 
-                <Dropzone />
+                <fieldset>
+                    <legend>
+                        <h2>Imagem</h2>
+                        <span>Envie alguma imagem do negócio, seja real ou representativa (visite o site <a href="https://www.unsplash.com" target="blank">Unsplash</a> para procurar fotos gratuitas).</span>
+                    </legend>
+
+
+                    <Dropzone onFileUploaded={setSelectedFile} />                
+                </fieldset>
 
                 <fieldset>
                     <legend>

@@ -66,6 +66,11 @@
   color: var(--text-color);
 }
 
+#page-create-point form legend span a {
+  color: #E55933;
+}
+
+
 #page-create-point form .field-group {
   flex: 1;
   display: flex;

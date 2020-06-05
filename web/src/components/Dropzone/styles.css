@@ -16,26 +16,25 @@
   object-fit: cover;
 }
 
-.dropzone p {
-  width: calc(100% - 60px);
-  height: calc(100% - 60px);
-  border-radius: 10px;
-  border: 1px dashed #df7154;
+.dropzone .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 60px);
+    height: calc(100% - 60px);
+    border-radius: 10px;
+    border: 1px dashed #df7154;
+}
 
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+.dropzone p {  
   color: #333;
+  text-align: center;
 }
 
-.dropzone p span {
-    padding-left: 8px;
-}
-
-.dropzone p svg {
+.dropzone .icon {
   color: #df7154;
   width: 24px;
   height: 24px;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 }
