@@ -3,7 +3,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
-import axios from 'axios';
 import api from '../../services/api';
 
 import './styles.css';
@@ -19,24 +18,25 @@ interface Category {
     image_url: string
 }
 
-interface IBGEUfResponse {
-    sigla: string;
-}
+// interface IBGEUfResponse {
+//     sigla: string;
+// }
 
-interface IBGECityResponse {
-    nome: string;
-}
+// interface IBGECityResponse {
+//     nome: string;
+// }
 
 const CreatePoint = () => {
 
     const [categories, setCategories] = useState<Category[]>([]);
-    const [ufs, setUfs] = useState<string[]>([]);
-    const [cities, setCities] = useState<string[]>([]);
+    //const [ufs, setUfs] = useState<string[]>([]);
+    //const [cities, setCities] = useState<string[]>([]);
 
     const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]);
     
-    const [selectedUf, setSelectedUf] = useState('0');
-    const [selectedCity, setSelectedCity] = useState('0');
+    // const [selectedUf, setSelectedUf] = useState('0');
+    // const [selectedCity, setSelectedCity] = useState('0');
+
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
     const [selectedCategory, setSelectedCategory] = useState<number>(0);
     
@@ -69,40 +69,40 @@ const CreatePoint = () => {
     }, []); // deixando o segundo parâmetro como um array vazio, vai ser executado apenas uma vez
 
 
-    useEffect( () => {
-        axios.get<IBGEUfResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome').then( response => {
-            const ufInitials = response.data.map( uf => uf.sigla );
+    // useEffect( () => {
+    //     axios.get<IBGEUfResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome').then( response => {
+    //         const ufInitials = response.data.map( uf => uf.sigla );
 
-            setUfs(ufInitials);
-        });
-    }, []);
+    //         setUfs(ufInitials);
+    //     });
+    // }, []);
 
 
-    useEffect( () => {
-        if (selectedUf === '0') {
-            return;
-        }
+    // useEffect( () => {
+    //     if (selectedUf === '0') {
+    //         return;
+    //     }
 
-        axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios?orderBy=id`)
-            .then( response => {
-                const cityNames = response.data.map( city => city.nome);
+    //     axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios?orderBy=id`)
+    //         .then( response => {
+    //             const cityNames = response.data.map( city => city.nome);
 
-                setCities(cityNames);
+    //             setCities(cityNames);
 
-            });
-    }, [selectedUf]);
+    //         });
+    // }, [selectedUf]);
 
-    function handleSelectUf (event: ChangeEvent<HTMLSelectElement>) {
-        const uf = event.target.value;
+    // function handleSelectUf (event: ChangeEvent<HTMLSelectElement>) {
+    //     const uf = event.target.value;
 
-        setSelectedUf(uf);
-    }
+    //     setSelectedUf(uf);
+    // }
 
-    function handleSelectCity (event: ChangeEvent<HTMLSelectElement>) {
-        const city = event.target.value;
+    // function handleSelectCity (event: ChangeEvent<HTMLSelectElement>) {
+    //     const city = event.target.value;
 
-        setSelectedCity(city);
-    }
+    //     setSelectedCity(city);
+    // }
 
     function handleMapClick (event: LeafletMouseEvent) {
         setSelectedPosition([
@@ -152,9 +152,12 @@ const CreatePoint = () => {
             curator_review 
         } = formData;
 
-        const state = selectedUf;
+        // const state = selectedUf;
 
-        const city = selectedCity;
+        const state = 'RS';
+
+        // const city = selectedCity;
+        const city = 'Porto Alegre';
 
         const [latitude, longitude] = selectedPosition;
 
@@ -262,10 +265,10 @@ const CreatePoint = () => {
                 <fieldset>
                     <legend>
                         <h2>Endereço</h2>
-                        <span>Selecione o endereço no mapa</span>
+                        <span>Clique no mapa para indicar o local do negócio. Você não precisa marcar o ponto exato, mas marque um ponto para indicar a região do negócio</span>
                     </legend>
 
-                    <Map center={initialPosition} zoom={15} onClick={handleMapClick} >
+                    <Map center={initialPosition} zoom={13} onClick={handleMapClick} >
                         <TileLayer
                             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -277,21 +280,11 @@ const CreatePoint = () => {
                     <div className="field-group">
                         <div className="field">
                             <label htmlFor="state">Estado</label>
-                            <select name="state" id="state" value={selectedUf} onChange={handleSelectUf}>
-                                <option value="0">Selecione uma UF</option>
-                                {ufs.map(uf => (
-                                    <option key={uf} value={uf}>{uf}</option>
-                                ))};
-                            </select>
+                            <input type="text" name="state" id="state" value="RS" placeholder="RS" disabled />
                         </div>
                         <div className="field">
                             <label htmlFor="city">Cidade</label>
-                            <select name="city" id="city" value={selectedCity} onChange={handleSelectCity}>
-                                <option value="0">Selecione uma cidade</option>
-                                {cities.map( city => (
-                                    <option key={city} value={city}>{city}</option>
-                                ))}
-                            </select>
+                            <input type="text" name="city" id="city" value="Porto Alegre" placeholder="Porto Alegre" disabled />
                         </div>
                     </div>
                     <div className="field">
@@ -341,10 +334,11 @@ const CreatePoint = () => {
                 <fieldset>
                     <legend>
                         <h2>Review do Curador</h2>
+                        <span>Sua descrição pessoal do negócio e </span>
                     </legend>
                     
                     <div className="field">
-                        <label htmlFor="curator_review">Descrição pessoal sobre o negócio</label>
+                        <label htmlFor="curator_review">Review</label>
                         <textarea name="curator_review" id="curator_review" rows={5} onChange={handleTextareaChange}></textarea>
                     </div>
 

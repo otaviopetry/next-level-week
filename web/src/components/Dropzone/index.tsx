@@ -15,7 +15,7 @@ const Dropzone = () => {
       {
         isDragActive ?
           <p>Imagem</p> :
-          <p>Arraste a imagem do negócio aqui 🧐</p>
+          <p>Arraste a imagem do negócio aqui <span role="img" aria-label="Emoji com monóculo"> 🧐 </span></p>
       }
     </div>
   )
