@@ -27,9 +27,9 @@ https://www.linkedin.com/in/otaviopetry/
 <img src="images/cadastro-03-b.png" >
 
 ### Mobile App
-<img src="images/mobile-home.jpg" width="150" >
-<img src="images/mobile-map-food.jpg" width="150" >
-<img src="images/mobile-map-other.jpg" width="150" >
-<img src="images/mobile-map-services.jpg" width="150" >
-<img src="images/mobile-details-01.jpg" width="150" >
-<img src="images/mobile-details-02.jpg" width="150" >
+<img src="images/mobile-home.jpg" width="300" >
+<img src="images/mobile-map-food.jpg" width="300" >
+<img src="images/mobile-map-other.jpg" width="300" >
+<img src="images/mobile-map-services.jpg" width="300" >
+<img src="images/mobile-details-01.jpg" width="300" >
+<img src="images/mobile-details-02.jpg" width="300" >
