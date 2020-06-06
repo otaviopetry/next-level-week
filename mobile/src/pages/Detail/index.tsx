@@ -140,10 +140,13 @@ const Detail = () => {
                     <FontAwesome name="whatsapp" size={20} color="#555" />
                     <Text style={styles.buttonText}>Whatsapp</Text>                    
                 </RectButton>
-                <RectButton style={styles.button} onPress={handleInstagram}>
-                    <FontAwesome name="instagram" size={20} color="#555" />
-                    <Text style={styles.buttonText}>Instagram</Text>                    
-                </RectButton>
+                { data.point.instagram !== '' && data.point.instagram !== null && (
+                  <RectButton style={styles.button} onPress={handleInstagram}>
+                      <FontAwesome name="instagram" size={20} color="#555" />
+                      <Text style={styles.buttonText}>Instagram</Text>                    
+                  </RectButton>
+                )}
+                
             </View>
 
         </SafeAreaView>
@@ -289,7 +292,7 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     paddingHorizontal: 32,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-around'
   },
   
   button: {

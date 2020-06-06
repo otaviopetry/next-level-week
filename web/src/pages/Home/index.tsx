@@ -11,17 +11,19 @@ import illustration from '../../assets/home-background.svg';
 const Home = () => {
     return (
         <div id="page-home">
-            <div className="content">
-                
+            <div className="content">                
                 
                 <div className="inner-container">
                 
                 	<main>
+
                         <header>
                             <img src={logo} alt="Logotipo do projeto" className="logo" />
                         </header>
+						
                 	    <h1>Apoie os negócios locais</h1>
-                	    <p>Seja durante a quarentena ou depois, vamos fortalecer nossos pequenos negócios locais. Juntos vamos fortalecer nossas redes e tornar nossa comunidade mais forte, unida e <strong>preparada para diferentes cenários</strong>.</p>
+                	    <p>Seja durante a quarentena ou depois, vamos apoiar nossos pequenos negócios locais.</p>
+						<p>Juntos vamos fortalecer nossas redes e tornar nossa comunidade mais unida e <strong>preparada para diferentes cenários</strong>.</p>
                 
                 	    <Link to="/cadastrar-negocio">
                 	        <span>
@@ -29,6 +31,7 @@ const Home = () => {
                 	        </span>
                 	        <strong>Cadastre um negócio local</strong>
                 	    </Link>
+
                 	</main>
                 
                 	<figure>
