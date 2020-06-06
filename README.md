@@ -16,15 +16,20 @@ https://www.linkedin.com/in/otaviopetry/
 
 ## Screenshots
 
-![](images/web-home.png)
-![](images/cadastro-01.png)
-![](images/cadastro-02.png)
-![](images/cadastro-03.png)
-![](images/cadastro-03-b.png)
-![](images/mobile-home.jpg)
-![](images/mobile-map-food.jpg)
-![](images/mobile-map-other.jpg)
-![](images/mobile-map-services.jpg)
-![](images/mobile-details-01.jpg)
-![](images/mobile-details-02.jpg)
+### Web Home
 
+<img src="images/web-home.png" >
+
+### Cadastro de negócio
+<img src="images/cadastro-01.png" >
+<img src="images/cadastro-02.png" >
+<img src="images/cadastro-03.png" >
+<img src="images/cadastro-03-b.png" >
+
+### Mobile App
+<img src="images/mobile-home.jpg" width="150" >
+<img src="images/mobile-map-food.jpg" width="150" >
+<img src="images/mobile-map-other.jpg" width="150" >
+<img src="images/mobile-map-services.jpg" width="150" >
+<img src="images/mobile-details-01.jpg" width="150" >
+<img src="images/mobile-details-02.jpg" width="150" >
