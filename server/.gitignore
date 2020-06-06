@@ -2,4 +2,4 @@
 /uploads/*
 !/uploads/*.svg
 
-/*.sqlite
+*.sqlite
