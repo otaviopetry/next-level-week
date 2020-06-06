@@ -97,7 +97,7 @@ const Points = () => {
       <>
         <View style={styles.container}>
           <TouchableOpacity>
-            <Icon name="arrow-left" size={20} color="#E55933" onPress={handleNavigateBack} /> 
+            <Icon name="arrow-left" size={25} color="#E55933" onPress={handleNavigateBack} /> 
           </TouchableOpacity>
 
           <Text style={styles.title}>Explore o mapa</Text>
@@ -110,8 +110,8 @@ const Points = () => {
                 initialRegion={{
                   latitude: initialPosition[0],
                   longitude: initialPosition[1],
-                  latitudeDelta: 0.024,
-                  longitudeDelta: 0.024
+                  latitudeDelta: 0.034,
+                  longitudeDelta: 0.034
                 }} 
               >
 
@@ -206,7 +206,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     borderRadius: 8,
     overflow: 'hidden',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderColor: '#eaeaea',
+    borderStyle: 'solid',
+    borderWidth: 1
   },
 
   mapMarkerImage: {

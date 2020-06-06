@@ -5,7 +5,7 @@ import { View, Image, Text, StyleSheet, ImageBackground } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-const B = (props) => <Text style={{
+const B = (props: any) => <Text style={{
   fontFamily: 'OpenSans_600SemiBold',
   color: '#333'
 }}>{props.children}</Text>
@@ -26,7 +26,7 @@ const Home = () => {
                     <Image source={require('../../assets/logo.png')} />
                     <Text style={styles.title}>Vamos fortalecer os pequenos negócios</Text>
                     <Text style={styles.description}>Seja durante ou depois da quarentena, dentro do possível, escolha comprar direto de quem faz. Assim teremos comunidades mais fortes, unidas e <B>preparadas para diferentes cenários.</B></Text>
-                    <Text style={styles.description}>E você vai conhecer trabalhos e pessoas incríveis  🧡</Text>
+                    <Text style={styles.description}>E você vai conhecer trabalhos e pessoas incríveis  💛</Text>
                 </View>
 
 

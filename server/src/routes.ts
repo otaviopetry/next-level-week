@@ -25,18 +25,18 @@ routes.post(
     celebrate({
         body: Joi.object().keys({
             biz_name: Joi.string().required().max(100),
-            email: Joi.string().email(),
-            whatsapp: Joi.number(),
-            working_hours: Joi.string().max(300),
-            instagram: Joi.string().max(80),
-            facebook: Joi.string().max(80),
-            site: Joi.string(),
+            email: Joi.string().email().allow('').optional().default(null  ),
+            whatsapp: Joi.string().max(11).allow('').optional().default(null  ),
+            working_hours: Joi.string().allow('').optional().default(null  ).max(300),
+            instagram: Joi.string().allow('').optional().default(null  ).max(60),
+            facebook: Joi.string().max(80).allow('').optional().default(null  ),
+            site: Joi.string().max(80).allow('').optional().default(null  ),
             latitude: Joi.number().required(),
             longitude: Joi.number().required(),
             city: Joi.string().required().max(100),
             state: Joi.string().required().max(2),
             neighborhood: Joi.string().required().max(50),
-            full_address: Joi.string().max(140),
+            full_address: Joi.string().max(140).allow('').optional().default(null  ),
             curator_review: Joi.string().required().max(280),
             category: Joi.number().required()
         })

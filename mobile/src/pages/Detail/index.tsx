@@ -60,6 +60,10 @@ const Detail = () => {
       Linking.openURL(`whatsapp://send?phone=+55${data.point.whatsapp}`);
     }
 
+    function handleInstagram () {
+      Linking.openURL(`https://instagram.com/${data.point.instagram}`);
+    }
+
     if (!data.point) {
       return null;
     }
@@ -68,7 +72,7 @@ const Detail = () => {
         <SafeAreaView style={{flex: 1}}>
             <View style={styles.container}>
                 <TouchableOpacity onPress={handleNavigateBack}>
-                    <Icon name="arrow-left" size={20} color="#E55933" /> 
+                    <Icon name="arrow-left" size={25} color="#E55933" /> 
                 </TouchableOpacity>
 
                 <Image style={styles.pointImage} source={{ uri: data.point.image }} />
@@ -87,24 +91,42 @@ const Detail = () => {
                       <Text style={styles.neighborhoodContent}>{data.point.neighborhood}</Text>
                   </View>
                   
-                  { data.point.full_address !== null && (
+                  { data.point.full_address != '' && data.point.full_address != null && (
                     <View style={styles.address}>
                       <Text style={styles.addressTitle}>Endereço completo</Text>
                       <Text style={styles.addressContent}>{data.point.full_address}</Text>
                     </View>
                   )}
+
+                  { data.point.site != '' && data.point.site != null && (
+                    <View style={styles.site}>
+                        <Text style={styles.siteTitle}>Site</Text>
+                        <Text
+                          onPress={ () => Linking.openURL(data.point.site)}
+                          style={styles.siteContent}
+                        >
+                          {data.point.site}
+                        </Text>
+                        
+                    </View>
+                  )}
   
-                  { data.point.working_hours !== null && (
+                  { data.point.working_hours != '' && data.point.working_hours != null && (
                     <View style={styles.workingHours}>
                         <Text style={styles.workingHoursTitle}>Horário de Funcionamento</Text>
                         <Text style={styles.workingHoursContent}>{data.point.working_hours}</Text>
                     </View>
                   )}
   
-                  { data.point.facebook !== null && (
+                  { data.point.facebook != '' && data.point.facebook != null && (
                     <View style={styles.facebook}>
                         <Text style={styles.facebookTitle}>Facebook</Text>
-                        <Text style={styles.facebookContent}>{data.point.facebook}</Text>
+                        <Text
+                          onPress={ () => Linking.openURL( `https://www.facebook.com/${data.point.facebook}`) }
+                          style={styles.facebookContent}
+                        >
+                          facebook.com/{data.point.facebook}
+                        </Text>
                     </View>
                   )}
 
@@ -118,7 +140,7 @@ const Detail = () => {
                     <FontAwesome name="whatsapp" size={20} color="#555" />
                     <Text style={styles.buttonText}>Whatsapp</Text>                    
                 </RectButton>
-                <RectButton style={styles.button}>
+                <RectButton style={styles.button} onPress={handleInstagram}>
                     <FontAwesome name="instagram" size={20} color="#555" />
                     <Text style={styles.buttonText}>Instagram</Text>                    
                 </RectButton>
@@ -204,6 +226,23 @@ const styles = StyleSheet.create({
   },
 
   addressContent: {
+    fontFamily: 'OpenSans_400Regular',
+    lineHeight: 24,
+    marginTop: 8,
+    color: '#6C6C80'
+  },
+
+  site: {
+    marginTop: 32,
+  },
+  
+  siteTitle: {
+    color: '#322153',
+    fontFamily: 'OpenSans_600SemiBold',
+    fontSize: 16,
+  },
+
+  siteContent: {
     fontFamily: 'OpenSans_400Regular',
     lineHeight: 24,
     marginTop: 8,

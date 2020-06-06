@@ -125,7 +125,7 @@ const CreatePoint = () => {
             data.append('working_hours', working_hours); 
             data.append('instagram', instagram); 
             data.append('facebook', facebook);
-            data.append('site', facebook);
+            data.append('site', site);
             data.append('neighborhood', neighborhood); 
             data.append('full_address', full_address); 
             data.append('curator_review', curator_review);
@@ -164,6 +164,10 @@ const CreatePoint = () => {
 
             <form onSubmit={handleSubmit}>
                 <h1>Cadastro de negócio</h1>
+                <span>
+                    Os campos obrigatórios estão marcados com *<br />
+                    Os outros são opcionais, mas tente dar o máximo de informações :)
+                </span>
 
                 <fieldset>
                     <legend>
@@ -171,7 +175,7 @@ const CreatePoint = () => {
                     </legend>
 
                     <div className="field">
-                        <label htmlFor="biz_name">Nome do negócio</label>
+                        <label htmlFor="biz_name">Nome do negócio*</label>
                         <input
                             type="text"
                             name="biz_name"
@@ -181,7 +185,7 @@ const CreatePoint = () => {
                     </div>
                     <div className="field-group">
                         <div className="field">
-                            <label htmlFor="email">E-mail (opcional)</label>
+                            <label htmlFor="email">E-mail</label>
                             <input
                                 type="email"
                                 name="email"
@@ -190,7 +194,7 @@ const CreatePoint = () => {
                             />
                         </div>
                         <div className="field">
-                            <label htmlFor="whatsapp">Whatsapp</label>
+                            <label htmlFor="whatsapp">Whatsapp*</label>
                             <input
                                 type="text"
                                 name="whatsapp"
@@ -247,16 +251,16 @@ const CreatePoint = () => {
 
                     <div className="field-group">
                         <div className="field">
-                            <label htmlFor="state">Estado</label>
+                            <label htmlFor="state">Estado*</label>
                             <input type="text" name="state" id="state" value="RS" placeholder="RS" disabled />
                         </div>
                         <div className="field">
-                            <label htmlFor="city">Cidade</label>
+                            <label htmlFor="city">Cidade*</label>
                             <input type="text" name="city" id="city" value="Porto Alegre" placeholder="Porto Alegre" disabled />
                         </div>
                     </div>
                     <div className="field">
-                        <label htmlFor="neighborhood">Bairro</label>
+                        <label htmlFor="neighborhood">Bairro*</label>
                         <input 
                             type="text"
                             name="neighborhood"
@@ -265,8 +269,8 @@ const CreatePoint = () => {
                         />
                     </div>
                     <div className="field">
-                        <label htmlFor="full_address">Endereço completo (opcional)</label>
-                        <small>Se informado, essa informação aparecerá no cabeçalho da página do negócio</small>
+                        <label htmlFor="full_address">Endereço completo</label>
+                        <small>Se informada, essa informação aparecerá na página do negócio</small>
                         <input 
                             type="text"
                             name="full_address"
@@ -278,7 +282,7 @@ const CreatePoint = () => {
 
                 <fieldset>
                     <legend>
-                        <h2>Imagem</h2>
+                        <h2>Imagem*</h2>
                         <span>Envie alguma imagem do negócio, seja real ou representativa (visite o site <a href="https://www.unsplash.com" target="blank">Unsplash</a> para procurar fotos gratuitas).</span>
                     </legend>
 
@@ -288,7 +292,7 @@ const CreatePoint = () => {
 
                 <fieldset>
                     <legend>
-                        <h2>Categoria</h2>
+                        <h2>Categoria*</h2>
                         <span>Selecione a categoria</span>
                     </legend>
 
@@ -309,8 +313,8 @@ const CreatePoint = () => {
                 </fieldset>
                 <fieldset>
                     <legend>
-                        <h2>Review do Curador</h2>
-                        <span>Sua descrição pessoal do negócio e </span>
+                        <h2>Review do Curador*</h2>
+                        <span>Sua descrição pessoal e objetiva do negócio. Se quiser, fale algo sobre as pessoas que fazem ele acontecer</span>
                     </legend>
                     
                     <div className="field">
