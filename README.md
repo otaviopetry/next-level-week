@@ -15,8 +15,8 @@ MVP of an application to register small local businesses, managed by community c
 
 ## Built with
 
-– Node.js
-– React.js
+- Node.js
+- React.js
 - React Native
 - Typescript
 - Express
