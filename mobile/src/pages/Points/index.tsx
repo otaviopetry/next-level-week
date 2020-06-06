@@ -101,7 +101,7 @@ const Points = () => {
           </TouchableOpacity>
 
           <Text style={styles.title}>Explore o mapa</Text>
-          <Text style={styles.description}>Conheça pequenos negócios locais e fortaleca nossa comunidade</Text>
+          <Text style={styles.description}>Escolha uma categoria e conheça pequenos negócios da nossa comunidade</Text>
 
           <View style={styles.mapContainer}>
             { initialPosition[0] !== 0 && (
@@ -110,8 +110,8 @@ const Points = () => {
                 initialRegion={{
                   latitude: initialPosition[0],
                   longitude: initialPosition[1],
-                  latitudeDelta: 0.014,
-                  longitudeDelta: 0.014
+                  latitudeDelta: 0.024,
+                  longitudeDelta: 0.024
                 }} 
               >
 
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
 
   description: {
     color: '#6C6C80',
-    fontSize: 16,
+    fontSize: 14,
     marginTop: 4,
     fontFamily: 'OpenSans_400Regular',
   },
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   mapMarkerContainer: {
     width: 90,
     height: 120,
-    backgroundColor: '#E55933',
+    backgroundColor: '#F2C14E',
     flexDirection: 'column',
     borderRadius: 8,
     overflow: 'hidden',
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   mapMarkerTitle: {
     flex: 1,
     fontFamily: 'OpenSans_600SemiBold',
-    color: '#FFF',
+    color: '#555',
     lineHeight: 23,
     fontSize: 7,
     textAlign: 'center'
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     marginRight: 8,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
 
     textAlign: 'center',
   },
@@ -257,6 +257,7 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans_400Regular',
     textAlign: 'center',
     fontSize: 13,
+    marginTop: 8
   },
 });
 

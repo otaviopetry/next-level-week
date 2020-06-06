@@ -1,9 +1,14 @@
 import React from 'react';
 import { Feather as Icon } from '@expo/vector-icons';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet, ImageBackground } from 'react-native';
 
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+
+const B = (props) => <Text style={{
+  fontFamily: 'OpenSans_600SemiBold',
+  color: '#333'
+}}>{props.children}</Text>
 
 const Home = () => {
     const navigation = useNavigation();
@@ -13,14 +18,14 @@ const Home = () => {
     }
 
     return (
-        <View style={styles.container}>
+        <ImageBackground source={ require('../../assets/background-home.png') } style={styles.container}>
             
             <View style={styles.container}>
                 
                 <View style={styles.main}>
                     <Image source={require('../../assets/logo.png')} />
-                    <Text style={styles.title}>Vamos fortalecer nossas redes.</Text>
-                    <Text style={styles.description}>Seja durante ou depois da quarentena, dentro do possível, escolha comprar direto de quem faz. Assim teremos comunidades mais fortes, unidas e preparadas para diferentes cenários.</Text>
+                    <Text style={styles.title}>Vamos fortalecer os pequenos negócios</Text>
+                    <Text style={styles.description}>Seja durante ou depois da quarentena, dentro do possível, escolha comprar direto de quem faz. Assim teremos comunidades mais fortes, unidas e <B>preparadas para diferentes cenários.</B></Text>
                     <Text style={styles.description}>E você vai conhecer trabalhos e pessoas incríveis  🧡</Text>
                 </View>
 
@@ -35,11 +40,11 @@ const Home = () => {
                       <Icon name="arrow-right" color="#FFF" size={24} />
                     </Text>
                   </View>
-                  <Text style={styles.buttonText}>Quero fortalecer</Text>                  
+                  <Text style={styles.buttonText}>Explorar pequenos negócios</Text>                  
                 </RectButton>
             </View>
             
-        </View>
+        </ImageBackground> 
     );
 }
 

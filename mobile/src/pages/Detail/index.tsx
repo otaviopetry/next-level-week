@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image, SafeAreaView, Linking  } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, SafeAreaView, Linking, ScrollView  } from 'react-native';
 import Constants from 'expo-constants';
 import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
-import * as MailComposer from 'expo-mail-composer';
 import api from '../../services/api';
 
 interface Params {
@@ -19,6 +18,7 @@ interface Data {
     whatsapp: string,
     instagram: string,
     facebook: string,
+    site: string,
     city: string,
     state: string,
     neighborhood: string,
@@ -27,10 +27,10 @@ interface Data {
     curator_review: string
 
   },
-  categories: {
+  categories: [{
     id: number,
     name: string
-  }
+  }]
 }
 
 const Detail = () => {
@@ -55,12 +55,6 @@ const Detail = () => {
       navigation.goBack();
     }
 
-    function handleComposeMail () {
-      MailComposer.composeAsync({
-        subject: `Consumidor interessado numa poa + forte`,
-        recipients: [data.point.email]
-      });
-    }
 
     function handleWhatsapp () {
       Linking.openURL(`whatsapp://send?phone=+55${data.point.whatsapp}`);
@@ -80,32 +74,53 @@ const Detail = () => {
                 <Image style={styles.pointImage} source={{ uri: data.point.image }} />
 
                 <Text style={styles.pointName}>{data.point.biz_name}</Text>
-                <Text style={styles.description}>{data.categories.name}</Text>
+                <Text style={styles.description}>{data.categories[0].name}</Text>
 
-                <View style={styles.neighborhood}>
-                    <Text style={styles.neighborhoodTitle}>Bairro</Text>
-                    <Text style={styles.neighborhoodContent}>{data.point.neighborhood}</Text>
-                </View>
-                <View style={styles.address}>
-                    <Text style={styles.addressTitle}>Endereço completo</Text>
-                    <Text style={styles.addressContent}>{data.point.full_address}</Text>
-                </View>
-                { data.point.working_hours !== null && (
-                  <View style={styles.workingHours}>
-                      <Text style={styles.workingHoursTitle}>Horário de Funcionamento</Text>
-                      <Text style={styles.workingHoursContent}>{data.point.working_hours}</Text>
+                <ScrollView persistentScrollbar>
+                  <View style={styles.curatorReview}>
+                      <Text style={styles.curatorReviewTitle}>Descrição</Text>
+                      <Text style={styles.curatorReviewContent}>{data.point.curator_review}</Text>
                   </View>
-                )}
+                  
+                  <View style={styles.neighborhood}>
+                      <Text style={styles.neighborhoodTitle}>Bairro</Text>
+                      <Text style={styles.neighborhoodContent}>{data.point.neighborhood}</Text>
+                  </View>
+                  
+                  { data.point.full_address !== null && (
+                    <View style={styles.address}>
+                      <Text style={styles.addressTitle}>Endereço completo</Text>
+                      <Text style={styles.addressContent}>{data.point.full_address}</Text>
+                    </View>
+                  )}
+  
+                  { data.point.working_hours !== null && (
+                    <View style={styles.workingHours}>
+                        <Text style={styles.workingHoursTitle}>Horário de Funcionamento</Text>
+                        <Text style={styles.workingHoursContent}>{data.point.working_hours}</Text>
+                    </View>
+                  )}
+  
+                  { data.point.facebook !== null && (
+                    <View style={styles.facebook}>
+                        <Text style={styles.facebookTitle}>Facebook</Text>
+                        <Text style={styles.facebookContent}>{data.point.facebook}</Text>
+                    </View>
+                  )}
+
+                  
+
+                </ScrollView>
                   
             </View>
             <View style={styles.footer}>
                 <RectButton style={styles.button} onPress={handleWhatsapp}>
-                    <FontAwesome name="whatsapp" size={20} color="#fff" />
+                    <FontAwesome name="whatsapp" size={20} color="#555" />
                     <Text style={styles.buttonText}>Whatsapp</Text>                    
                 </RectButton>
-                <RectButton style={styles.button} onPress={handleComposeMail}>
-                    <Icon name="mail" size={20} color="#fff" />
-                    <Text style={styles.buttonText}>Email</Text>                    
+                <RectButton style={styles.button}>
+                    <FontAwesome name="instagram" size={20} color="#555" />
+                    <Text style={styles.buttonText}>Instagram</Text>                    
                 </RectButton>
             </View>
 
@@ -138,6 +153,24 @@ const styles = StyleSheet.create({
   description: {
     fontFamily: 'OpenSans_400Regular',
     fontSize: 16,
+    lineHeight: 24,
+    marginTop: 8,
+    color: '#6C6C80',
+    paddingBottom: 16
+  },
+
+  curatorReview: {
+    marginTop: 32,
+  },
+  
+  curatorReviewTitle: {
+    color: '#322153',
+    fontFamily: 'OpenSans_600SemiBold',
+    fontSize: 16,
+  },
+
+  curatorReviewContent: {
+    fontFamily: 'OpenSans_400Regular',
     lineHeight: 24,
     marginTop: 8,
     color: '#6C6C80'
@@ -194,6 +227,23 @@ const styles = StyleSheet.create({
     color: '#6C6C80'
   },
 
+  facebook: {
+    marginTop: 32,
+  },
+  
+  facebookTitle: {
+    color: '#322153',
+    fontFamily: 'OpenSans_600SemiBold',
+    fontSize: 16,
+  },
+
+  facebookContent: {
+    fontFamily: 'OpenSans_400Regular',
+    lineHeight: 24,
+    marginTop: 8,
+    color: '#6C6C80'
+  },
+
   footer: {
     borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: '#999',
@@ -205,7 +255,7 @@ const styles = StyleSheet.create({
   
   button: {
     width: '48%',
-    backgroundColor: '#E55933',
+    backgroundColor: '#F2C14E',
     borderRadius: 10,
     height: 50,
     flexDirection: 'row',
@@ -215,7 +265,7 @@ const styles = StyleSheet.create({
 
   buttonText: {
     marginLeft: 8,
-    color: '#FFF',
+    color: '#555',
     fontSize: 16,
     fontFamily: 'OpenSans_600SemiBold',
   },

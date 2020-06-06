@@ -102,6 +102,11 @@
   min-width: 100%;
 }
 
+#page-create-point form .buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
 #page-create-point form .field select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -201,7 +206,8 @@
 }
 
 .items-grid li img {
-  max-width: 100%;
+  width: 50px;
+  height: 50px
 }
 
 .items-grid li span {
@@ -214,7 +220,7 @@
 }
 
 .items-grid li.selected {
-  background: #E1FAEC;
+  background: #faf7e1;
   border: 2px solid #E55933;
 }
 

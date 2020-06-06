@@ -17,7 +17,7 @@ const Home = () => {
 
                 <main>
                     <h1>Apoie os negócios locais</h1>
-                    <p>Seja durante a quarentena ou depois, dê preferência a pequenos negócios locais. Juntos vamos fortalecer nossas redes e enfraquecer as cadeias de exploração do trabalho.</p>
+                    <p>Seja durante a quarentena ou depois, dê preferência a pequenos negócios locais. Juntos vamos fortalecer nossas redes e tornar nossa comunidade mais forte, unida e preparada.</p>
 
                     <Link to="/cadastrar-negocio">
                         <span>

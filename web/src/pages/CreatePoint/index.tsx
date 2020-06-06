@@ -11,32 +11,19 @@ import logo from '../../assets/logo.svg';
 
 import Dropzone from '../../components/Dropzone';
 
-
 interface Category {
     id: number,
     name: string,
     image_url: string
 }
 
-// interface IBGEUfResponse {
-//     sigla: string;
-// }
-
-// interface IBGECityResponse {
-//     nome: string;
-// }
 
 const CreatePoint = () => {
 
     const [categories, setCategories] = useState<Category[]>([]);
 
-    //const [ufs, setUfs] = useState<string[]>([]);
-    //const [cities, setCities] = useState<string[]>([]);
 
     const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]);
-    
-    // const [selectedUf, setSelectedUf] = useState('0');
-    // const [selectedCity, setSelectedCity] = useState('0');
 
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
     const [selectedCategory, setSelectedCategory] = useState<number>(0);
@@ -50,6 +37,7 @@ const CreatePoint = () => {
         working_hours: '',
         instagram: '',
         facebook: '',
+        site: '',
         neighborhood: '',
         full_address: '',
         curator_review: ''        
@@ -70,42 +58,6 @@ const CreatePoint = () => {
             setCategories(response.data);
         })
     }, []); // deixando o segundo parâmetro como um array vazio, vai ser executado apenas uma vez
-
-
-    // useEffect( () => {
-    //     axios.get<IBGEUfResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome').then( response => {
-    //         const ufInitials = response.data.map( uf => uf.sigla );
-
-    //         setUfs(ufInitials);
-    //     });
-    // }, []);
-
-
-    // useEffect( () => {
-    //     if (selectedUf === '0') {
-    //         return;
-    //     }
-
-    //     axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios?orderBy=id`)
-    //         .then( response => {
-    //             const cityNames = response.data.map( city => city.nome);
-
-    //             setCities(cityNames);
-
-    //         });
-    // }, [selectedUf]);
-
-    // function handleSelectUf (event: ChangeEvent<HTMLSelectElement>) {
-    //     const uf = event.target.value;
-
-    //     setSelectedUf(uf);
-    // }
-
-    // function handleSelectCity (event: ChangeEvent<HTMLSelectElement>) {
-    //     const city = event.target.value;
-
-    //     setSelectedCity(city);
-    // }
 
     function handleMapClick (event: LeafletMouseEvent) {
         setSelectedPosition([
@@ -148,49 +100,54 @@ const CreatePoint = () => {
             whatsapp, 
             working_hours, 
             instagram, 
-            facebook, 
+            facebook,
+            site,
             neighborhood, 
             full_address, 
             curator_review 
         } = formData;
 
-        // const state = selectedUf;
-
         const state = 'RS';
 
-        // const city = selectedCity;
         const city = 'Porto Alegre';
 
         const [latitude, longitude] = selectedPosition;
 
         const category = selectedCategory;
 
-        const data = new FormData();
+        if ( biz_name !== '' && latitude !== 0 && longitude !== 0 && category !== 0 ) {
 
-        data.append('biz_name', biz_name);
-        data.append('email', email);
-        data.append('whatsapp', whatsapp);
-        data.append('working_hours', working_hours); 
-        data.append('instagram', instagram); 
-        data.append('facebook', facebook); 
-        data.append('neighborhood', neighborhood); 
-        data.append('full_address', full_address); 
-        data.append('curator_review', curator_review);
-        data.append('state', state);
-        data.append('city', city);
-        data.append('latitude', String(latitude));
-        data.append('longitude', String(longitude));
-        data.append('category', String(category));
-        
-        if (selectedFile) {
-            data.append('image', selectedFile);    
-        }
+            const data = new FormData();
 
-        api.post('negocios-locais', data);
+            data.append('biz_name', biz_name);
+            data.append('email', email);
+            data.append('whatsapp', whatsapp);
+            data.append('working_hours', working_hours); 
+            data.append('instagram', instagram); 
+            data.append('facebook', facebook);
+            data.append('site', facebook);
+            data.append('neighborhood', neighborhood); 
+            data.append('full_address', full_address); 
+            data.append('curator_review', curator_review);
+            data.append('state', state);
+            data.append('city', city);
+            data.append('latitude', String(latitude));
+            data.append('longitude', String(longitude));
+            data.append('category', String(category));
+            
+            if (selectedFile) {
+                data.append('image', selectedFile);    
+            }
 
-        alert('Ponto de coleta criado');
+            api.post('negocios-locais', data);
 
-        history.push('/');
+            alert('Negócio cadastrado!');
+
+            history.push('/');
+
+        } else {
+            alert('Verifique se algum campo obrigatório está vazio');
+        }       
 
     }
 
@@ -266,6 +223,10 @@ const CreatePoint = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
+                    </div>
+                    <div className="field">
+                        <label htmlFor="site">Site</label>
+                        <input type="text" name="site" id="site" onChange={handleInputChange} />
                     </div>
 
                 </fieldset>
@@ -359,7 +320,9 @@ const CreatePoint = () => {
 
                 </fieldset>
 
-                <button type="submit">Cadastrar</button>
+                <div className="buttonContainer">
+                	<button type="submit">Cadastrar</button>
+                </div>
                 
             </form>
         </div>       

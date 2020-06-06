@@ -6,7 +6,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 48px;
   outline: 0;
 }
 
@@ -28,7 +27,7 @@
 }
 
 .dropzone p {  
-  color: #333;
+  color: #555;
   text-align: center;
 }
 

@@ -30,12 +30,12 @@
 }
 
 #page-home .content main h1 {
-  font-size: 54px;
+  font-size: 44px;
   color: var(--title-color);
 }
 
 #page-home .content main p {
-  font-size: 24px;
+  font-size: 22px;
   margin-top: 24px;
   line-height: 38px;
 }

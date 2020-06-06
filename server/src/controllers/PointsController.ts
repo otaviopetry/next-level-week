@@ -24,7 +24,7 @@ class PointsController {
         const serializedPoints = points.map( point => {
             return {
                 ...point,
-                image_url: `http://192.168.0.102:3333/uploads/${point.image}`
+                image_url: `${point.image}`
             }
         })
 
@@ -58,6 +58,7 @@ class PointsController {
             working_hours,
             instagram,
             facebook,
+            site,
             image,
             latitude,
             longitude,
@@ -73,13 +74,14 @@ class PointsController {
         const trx = await knex.transaction(); //só insere na database se as duas querys tiverem sucesso
 
         const point = {
-            image: req.file.filename,
+            image: `http://192.168.0.102:3333/uploads/${req.file.filename}`,
             biz_name,
             email,
             whatsapp,
             working_hours,
             instagram,
             facebook,
+            site,
             latitude,
             longitude,
             city,

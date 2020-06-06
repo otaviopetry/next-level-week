@@ -9,6 +9,7 @@ export async function up(knex: Knex) { //declaração de tipo (typescript)
         table.increments('id').primary();
         table.string('biz_name').notNullable();
         table.string('email');
+        table.string('site'),
         table.string('whatsapp').notNullable();
         table.string('working_hours');
         table.string('instagram');
