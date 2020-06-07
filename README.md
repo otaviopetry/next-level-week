@@ -1,7 +1,7 @@
 # poaforte ✊
 Repositório para projeto Node.js + React.js + React Native desenvolvido durante a <em>Next Level Week</em> da <strong>Rocketseat</strong>.
 
-<strong>poaforte</strong> é uma plataforma para <em>curadores da comunidade</em> cadastrarem pequenos negócios da região e para <em>pessoas interessadas na causa</em> encontrarem excelentes produtos e serviços feitos por pessoas ao seu redor
+<strong>poaforte</strong> é uma plataforma para <em>curadores da comunidade</em> cadastrarem pequenos negócios da região e para <em>pessoas interessadas na causa</em> encontrarem excelentes produtos e serviços feitos por quem vive nas redondezas
 
 facilmente escalável / replicável para outras cidades e regiões
 
