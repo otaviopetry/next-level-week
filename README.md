@@ -11,7 +11,7 @@ Projeto desenvolvido durante a Next Level Week da Rocketseat.
 MVP de uma aplicação para cadastrar pequenos negócios locais da comunidade, gerenciada por curadores, com aplicativo para os usuários explorarem os pequenos negócios na sua região.
 
 <em>Project developed at Next Level Week course by Rocketseat.
-MVP of an application to register small local businesses, managed by community curators, with an mobile app for users to explore their neighborhood.</em>
+MVP of an application to register small local businesses, managed by community curators, with a mobile app for users to explore their neighborhood.</em>
 
 ## Built with
 
